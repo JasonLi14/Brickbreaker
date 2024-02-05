@@ -50,6 +50,9 @@ class BasicSprite:
         if KEY_PRESSES[pygame.K_s]:
             self.__Y = self.__Y + self.__SPEED
 
+    def setSpeed(self, SPEED):  # Changes speed
+        self.__SPEED = SPEED
+
     def setX(self, X):  # Public Methods
         self.__X = X
         self.__POS = (self.__X, self.__Y)
@@ -57,6 +60,10 @@ class BasicSprite:
     def setY(self, Y):
         self.__Y = Y
         self.__POS = (self.__X, self.__Y)
+
+    def setPos(self, X, Y):
+        self.setX(X)
+        self.setY(Y)
 
     def marqueeX(self):
         self.__X = self.__X + self.__SPEED * self.__DIR_X
@@ -109,10 +116,6 @@ class BasicSprite:
 
         self.__POS = (self.__X, self.__Y)
 
-    def setPos(self, X, Y):
-        self.setX(X)
-        self.setY(Y)
-
     def setColor(self, COLOR):
         self._COLOR = COLOR
 
@@ -161,3 +164,6 @@ class BasicSprite:
 
     def getY(self):
         return self.__Y
+
+    def getSpeed(self):
+        return self.__SPEED

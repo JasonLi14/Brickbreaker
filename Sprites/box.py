@@ -11,7 +11,7 @@ from window import Window
 import pygame
 
 
-class Box(BasicSprite):
+class Box(BasicSprite):  # Box is inheriting from BasicSprite
 
     def __init__(self, WIDTH=1, HEIGHT=1):
         BasicSprite.__init__(self, WIDTH, HEIGHT)
