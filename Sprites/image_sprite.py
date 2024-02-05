@@ -5,15 +5,15 @@ Title: Image Sprite Class
 Author: Jason Li
 Date Created: 2024-01-15
 """
-from my_sprite import MySprite
+from Sprites.basic_sprite import BasicSprite
 import pygame
 from window import Window
 from random import randrange
 
 
-class ImageSprite(MySprite):
+class ImageSprite(BasicSprite):
     def __init__(self, IMAGE_FILE, LOOKING_RIGHT=True):
-        MySprite.__init__(self)
+        BasicSprite.__init__(self)
         self.__FILE_NAME = IMAGE_FILE
         self._SURFACE = pygame.image.load(self.__FILE_NAME).convert_alpha()
         self.__LOOKING_RIGHT = LOOKING_RIGHT  # Looking to the left
@@ -34,7 +34,7 @@ class ImageSprite(MySprite):
 
     def WASDmove(self, KEY_PRESSES):
         # Polymorphism to flip the image if necessary
-        MySprite.WASDmove(self, KEY_PRESSES)
+        BasicSprite.WASDmove(self, KEY_PRESSES)
         if KEY_PRESSES[pygame.K_d] == 1 and self.__LOOKING_RIGHT is False:
             self._SURFACE = pygame.transform.flip(self._SURFACE, True, False)
             self.__LOOKING_RIGHT = True

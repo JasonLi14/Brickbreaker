@@ -1,4 +1,4 @@
-# my_sprite.py in e_inheritance
+# basic_sprite.py in e_inheritance
 
 """
 Title: The Parent Class
@@ -8,7 +8,7 @@ Date Created: 2023-12-22
 import pygame
 
 
-class MySprite:
+class BasicSprite:
 
     """
     Abstract sprite class for pygame sprites.

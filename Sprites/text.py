@@ -6,18 +6,18 @@ Author: Jason Li
 Date Created: 2023-12-22
 """
 
-from my_sprite import MySprite
+from Sprites.basic_sprite import BasicSprite
 import pygame
 from window import Window
 
 
-class Text(MySprite):  # Brackets indicate that it is inheriting
+class Text(BasicSprite):  # Brackets indicate that it is inheriting
     """
     Subclass of MySprite
     """
 
     def __init__(self, TEXT, F_FAMILY="Comic Sans", F_SIZE=36):
-        MySprite.__init__(self)
+        BasicSprite.__init__(self)
         # This allows the Text sprite to init as the parent but we can add stuff to __init__.
         self.__TEXT = TEXT
         self.__FONT_FAMILY = F_FAMILY
@@ -26,7 +26,7 @@ class Text(MySprite):  # Brackets indicate that it is inheriting
         self._SURFACE = self.__FONT.render(self.__TEXT, True, self._COLOR)
 
     def setColor(self, COLOR):
-        MySprite.setColor(self, COLOR)
+        BasicSprite.setColor(self, COLOR)
         self._SURFACE = self.__FONT.render(self.__TEXT, True, self._COLOR)
 
 

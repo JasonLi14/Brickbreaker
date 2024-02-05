@@ -7,15 +7,15 @@ Date-Created: 2024-01-17
 
 import pygame
 from box import Box
-from image_sprite import ImageSprite
-from my_sprite import MySprite
+from Sprites.image_sprite import ImageSprite
+from Sprites.basic_sprite import BasicSprite
 from window import Window
 from random import randrange
 
 
-class Player(MySprite):
+class Player(BasicSprite):
     def __init__(self, IMAGE_FILE):
-        MySprite.__init__(self)
+        BasicSprite.__init__(self)
         self.__IMAGE = ImageSprite(IMAGE_FILE, False)
         self.__HIT_BOX = Box(self.__IMAGE.getWidth()//2, self.__IMAGE.getHeight()//2)
         self.__HIT_BOX.setPos(
@@ -26,21 +26,21 @@ class Player(MySprite):
 
     # --- MODIFIER METHODS --- #
     def setX(self, X):
-        MySprite.setX(self, X)
+        BasicSprite.setX(self, X)
         self.__IMAGE.setX(X)
         self.__HIT_BOX.setX(
             self.getX() + self.__IMAGE.getWidth()//2 - self.__HIT_BOX.getWidth()//2
         )
 
     def setY(self, Y):
-        MySprite.setY(self, Y)
+        BasicSprite.setY(self, Y)
         self.__IMAGE.setY(Y)
         self.__HIT_BOX.setY(
             self.getY() + self.__IMAGE.getHeight()//2 - self.__HIT_BOX.getHeight()//2
         )
 
     def setPos(self, X, Y):
-        MySprite.setPos(self, X, Y)
+        BasicSprite.setPos(self, X, Y)
         self.setX(X)
         self.setY(Y)
 
@@ -53,7 +53,7 @@ class Player(MySprite):
         self.setPos(self.getX(), self.getY())
 
     def WASDmove(self, KEY_PRESSES):
-        MySprite.WASDmove(self, KEY_PRESSES)
+        BasicSprite.WASDmove(self, KEY_PRESSES)
         self.__IMAGE.WASDmove(KEY_PRESSES)
         self.setPos(self.getX(), self.getY())
 

@@ -6,24 +6,24 @@ Author: Jason Li
 Date Created: 2023-12-22
 """
 
-from my_sprite import MySprite
+from Sprites.basic_sprite import BasicSprite
 from window import Window
 import pygame
 
 
-class Box(MySprite):
+class Box(BasicSprite):
 
     def __init__(self, WIDTH=1, HEIGHT=1):
-        MySprite.__init__(self, WIDTH, HEIGHT)
+        BasicSprite.__init__(self, WIDTH, HEIGHT)
         self._SURFACE = pygame.Surface(self._DIMENSIONS, pygame.SRCALPHA, 32)
         self._SURFACE.fill(self._COLOR)
 
     def setColor(self, COLOR):  # We have modified a method ==> polymorphism
-        MySprite.setColor(self, COLOR)
+        BasicSprite.setColor(self, COLOR)
         self._SURFACE.fill(self._COLOR)
 
     def setDimensions(self, WIDTH, HEIGHT):
-        MySprite.setDimensions(self, WIDTH, HEIGHT)
+        BasicSprite.setDimensions(self, WIDTH, HEIGHT)
         self._SURFACE = pygame.transform.scale(
             self._SURFACE, (self.getWidth(),
                             self.getHeight()))
