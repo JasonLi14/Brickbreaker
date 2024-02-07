@@ -14,7 +14,7 @@ class Window:
     Creates the window that will load the game.
     """
 
-    def __init__(self, TITLE, WIDTH=800, HEIGHT=600, FPS=30, COLOR=(50, 55, 69)):
+    def __init__(self, TITLE, WIDTH=800, HEIGHT=600, FPS=30, COLOR=(0, 0, 0)):
         self.__TITLE = TITLE
         self.__FPS = FPS
         self.__WIDTH = WIDTH

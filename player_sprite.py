@@ -6,23 +6,14 @@ Date-Created: 2024-01-17
 """
 
 import pygame
-from box import Box
+from Sprites.box import Box
 from Sprites.image_sprite import ImageSprite
-from Sprites.basic_sprite import BasicSprite
 from window import Window
-from random import randrange
 
 
-class Player(BasicSprite):
-    def __init__(self, IMAGE_FILE):
-        BasicSprite.__init__(self)
-        self.__IMAGE = ImageSprite(IMAGE_FILE, False)
-        self.__HIT_BOX = Box(self.__IMAGE.getWidth()//2, self.__IMAGE.getHeight()//2)
-        self.__HIT_BOX.setPos(
-            self.getX() + self.__IMAGE.getWidth()//2 - self.__HIT_BOX.getWidth()//2,
-            self.getY() + self.__IMAGE.getHeight()//2 - self.__HIT_BOX.getWidth()//2
-        )
-        self._SURFACE = self.__IMAGE.getSurface()
+class Player(Box):
+    def __init__(self, WIDTH=10, HEIGHT=10):
+        Box.__init__(self, WIDTH, HEIGHT)
 
     # --- MODIFIER METHODS --- #
     def ADMove(self, KEY_PRESSES):
@@ -31,6 +22,10 @@ class Player(BasicSprite):
         :param KEY_PRESSES: list(int)
         :return: None
         """
+        if KEY_PRESSES[pygame.K_d]:
+            self.__X = self.__X + self.__SPEED
+        if KEY_PRESSES[pygame.K_a]:
+            self.__X = self.__X - self.__SPEED
 
 
 if __name__ == "__main__":

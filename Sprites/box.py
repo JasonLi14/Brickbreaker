@@ -13,10 +13,11 @@ import pygame
 
 class Box(BasicSprite):  # Box is inheriting from BasicSprite
 
-    def __init__(self, WIDTH=1, HEIGHT=1):
+    def __init__(self, WIDTH=1, HEIGHT=1, SPEED=5):
         BasicSprite.__init__(self, WIDTH, HEIGHT)
         self._SURFACE = pygame.Surface(self._DIMENSIONS, pygame.SRCALPHA, 32)
         self._SURFACE.fill(self._COLOR)
+        self.setSpeed(SPEED)
 
     def setColor(self, COLOR):  # We have modified a method ==> polymorphism
         BasicSprite.setColor(self, COLOR)
