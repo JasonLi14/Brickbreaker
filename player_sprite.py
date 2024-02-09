@@ -7,7 +7,6 @@ Date-Created: 2024-01-17
 
 import pygame
 from Sprites.box import Box
-from Sprites.image_sprite import ImageSprite
 from window import Window
 
 
@@ -23,9 +22,11 @@ class Player(Box):
         :return: None
         """
         if KEY_PRESSES[pygame.K_d]:
-            self.__X = self.__X + self.__SPEED
+            self.setDirX(True)
+            self.marqueeX()
         if KEY_PRESSES[pygame.K_a]:
-            self.__X = self.__X - self.__SPEED
+            self.setDirX(False)
+            self.marqueeX()
 
 
 if __name__ == "__main__":

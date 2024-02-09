@@ -5,8 +5,10 @@ Author: Jason Li
 Date-Created: 2024-02-05
 """
 
+from Sprites.box import Box
 from brick import Brick
 from window import Window
+from player_sprite import Player
 import pygame
 
 
@@ -14,13 +16,24 @@ class Level:  # This is an aggregate object because it combines box classes
     """
     Level class ==> one class for each level
     """
-    def __init__(self, BRICKS_AMT_X, BRICKS_AMT_Y, LIVES=3):
+    def __init__(self, BRICKS_AMT_X, BRICKS_AMT_Y, LIVES=3, PLAYER_WIDTH=80, BALL_WIDTH=3,
+                 BALL_SPEED=5):
+        """
+        Initialize the level object
+        :param BRICKS_AMT_X: int
+        :param BRICKS_AMT_Y: int
+        :param LIVES: int
+        :param PLAYER_WIDTH: int
+        :param BALL_WIDTH: int
+        :param BALL_SPEED: int
+        """
         self.__BRICKS_AMT_X = BRICKS_AMT_X
         self.__BRICKS_AMT_Y = BRICKS_AMT_Y
         self.__BRICKS = []
         self.__LIVES = LIVES
-
-        # Create the bricks
+        self.__PLAYER = Player(PLAYER_WIDTH)  # Composition
+        self.__BALL = Box(BALL_WIDTH, BALL_WIDTH)
+        self.__BALL.setSpeed(BALL_SPEED)
 
     def setup(self, MAX_X, MAX_Y, MIN_X=0, MIN_Y=0, PADDING_X=5, PADDING_Y=5):
         """
@@ -49,8 +62,17 @@ class Level:  # This is an aggregate object because it combines box classes
                     NEW_BRICK.setX((BRICK_WIDTH + PADDING_X) * j + MIN_X - BRICK_WIDTH//4)
                 self.__BRICKS.append(NEW_BRICK)
 
-    def play(self):
-        pass
+    def checkCollisions(self):
+        """
+        Checks if the ball has collided with any brick.
+        :return: int, int (first denotes index of brick that was collided with, -1 denotes none hit,
+        second denotes where it was hit
+        """
+        for i in range(len(self.__BRICKS)):
+            COLLIDE = self.__BRICKS[i].isCollision(self.__PLAYER.getSurface(), self.__PLAYER.getPOS())
+            if COLLIDE != 0:
+                return i, COLLIDE
+        return -1
 
     def death(self, VICTORY):
         pass
@@ -61,18 +83,27 @@ class Level:  # This is an aggregate object because it combines box classes
     def loss(self):
         pass
 
+    # Accessor Methods
     def getBricks(self):
         return self.__BRICKS
+
+    def getPlayer(self):
+        return self.__PLAYER
+
+    def getBall(self):
+        return self.__BALL
 
 
 if __name__ == "__main__":  # just a test
     pygame.init()
-    WINDOW = Window("Test level")
-    LEVEL_1 = Level(10, 5, 3)
+    WINDOW = Window("Test level", COLOR=(9, 14, 32))
+    LEVEL_1 = Level(10, 5, 3, 100, 5, 5)
     LEVEL_1.setup(WINDOW.getWidth() - 100, 300, 100, 100, 3, 20)
+    LEVEL_1.getPlayer().setPos((WINDOW.getWidth() - 100)//2, WINDOW.getHeight() - 50)
     BRICKS = LEVEL_1.getBricks()
 
     while True:
+        # INPUT (getting player movements)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
@@ -80,8 +111,32 @@ if __name__ == "__main__":  # just a test
 
         PRESSED_KEYS = pygame.key.get_pressed()
 
-        WINDOW.clearScreen()
+        # PROCESSING
+        # Moving the player
+        LEVEL_1.getPlayer().ADMove(PRESSED_KEYS)
+        LEVEL_1.getPlayer().wrapX(WINDOW.getWidth())
 
+        # Moving the Ball
+        LEVEL_1.getBall().marqueeX()
+        LEVEL_1.getBall().marqueeY()
+        LEVEL_1.getBall().bounceX(WINDOW.getWidth())  # Do the bounceY individually
+
+        # Checking for collisions with the paddle
+        BALL_PLAYER_COLLIDE = LEVEL_1.getBall().isCollision(LEVEL_1.getPlayer().getSurface(),
+                                                            LEVEL_1.getPlayer().getPOS())
+        print(BALL_PLAYER_COLLIDE)
+        if BALL_PLAYER_COLLIDE != 0:
+            LEVEL_1.getBall().collisionBump(BALL_PLAYER_COLLIDE)
+        # Checking for collisions with bricks
+
+        # OUTPUT (rendering game)
+        WINDOW.clearScreen()
+        # Bricks
         for BRICK in BRICKS:
             WINDOW.getSurface().blit(BRICK.getSurface(), BRICK.getPOS())
+        # Player
+        WINDOW.getSurface().blit(LEVEL_1.getPlayer().getSurface(), LEVEL_1.getPlayer().getPOS())
+        # Ball
+        WINDOW.getSurface().blit(LEVEL_1.getBall().getSurface(), LEVEL_1.getBall().getPOS())
+
         WINDOW.updateFrame()

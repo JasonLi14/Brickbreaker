@@ -72,6 +72,28 @@ class BasicSprite:
     def marqueeY(self):
         self.__Y = self.__Y + self.__SPEED * self.__DIR_Y
 
+    def setDirX(self, GO_RIGHT):
+        """
+        Set self.__DirX positive if GO_RIGHT is true, negative if false.
+        :param GO_RIGHT: bool
+        :return: None
+        """
+        if GO_RIGHT:
+            self.__DIR_X = 1
+        else:
+            self.__DIR_X = -1
+
+    def setDirY(self, GO_DOWN):
+        """
+        Set self.__DirX positive if GO_RIGHT is true, negative if false.
+        :param GO_DOWN: bool
+        :return: None
+        """
+        if GO_DOWN:
+            self.__DIR_Y = 1
+        else:
+            self.__DIR_Y = -1
+
     def wrapX(self, MAX_X, MIN_X=0):
         """
         When the object goes out, it goes back the other side
@@ -116,6 +138,17 @@ class BasicSprite:
 
         self.__POS = (self.__X, self.__Y)
 
+    def collisionBump(self, SIDE):
+        """
+        Change direction of Y and X depending on the side hit
+        :param SIDE: 1, 2, 3 or 4
+        :return: None
+        """
+        if SIDE == 1 or SIDE == 3:  # Top or bottom
+            self.__DIR_Y = -1 * self.__DIR_Y
+        if SIDE == 2 or SIDE == 4:  # Top or bottom
+            self.__DIR_X = -1 * self.__DIR_X
+
     def setColor(self, COLOR):
         self._COLOR = COLOR
 
@@ -142,16 +175,22 @@ class BasicSprite:
         Testing whether the current sprite position is overlapping the given sprite's position.
         :param SCREEN: object -> Surface
         :param POS: tuple -> int
-        :return: Bool
+        :return: int  get the side that it has collided. 1 = top, 2 = left, 3 = bottom, 4 = right,
+        0 = no collide
         """
         WIDTH = SCREEN.get_width()
         HEIGHT = SCREEN.get_height()
         X = POS[0]
         Y = POS[1]
-        if X - self.__WIDTH <= self.__X <= X + WIDTH:
-            if Y - self.__HEIGHT <= self.__Y <= Y + HEIGHT:
-                return True
-        return False
+        if Y - self.__HEIGHT <= self.__Y:
+            return 1
+        if self.__X >= X + WIDTH:
+            return 2
+        if self.__Y >= Y + HEIGHT:
+            return 3
+        if X - self.__WIDTH <= self.__X:
+            return 4
+        return 0
 
     def getWidth(self):
         return self._SURFACE.get_width()
