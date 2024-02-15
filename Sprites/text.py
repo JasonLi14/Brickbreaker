@@ -16,7 +16,7 @@ class Text(BasicSprite):  # Brackets indicate that it is inheriting
     Subclass of MySprite
     """
 
-    def __init__(self, TEXT, F_FAMILY="Comic Sans", F_SIZE=36):
+    def __init__(self, TEXT, F_SIZE=30, F_FAMILY="Comic Sans"):
         BasicSprite.__init__(self)
         # This allows the Text sprite to init as the parent but we can add stuff to __init__.
         self.__TEXT = TEXT

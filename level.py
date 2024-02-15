@@ -10,18 +10,21 @@ from brick import Brick
 from window import Window
 from player_sprite import Player
 import pygame
+from top_text import TopText
 
 
 class Level:  # This is an aggregate object because it combines box classes
     """
     Level class ==> one class for each level
     """
-    def __init__(self, BRICKS_AMT_X, BRICKS_AMT_Y, LIVES=3, PLAYER_WIDTH=80, BALL_WIDTH=3,
-                 BALL_SPEED=5):
+    def __init__(self, NAME, BRICKS_AMT_X, BRICKS_AMT_Y, SCREEN_WIDTH,
+                 LIVES=3, PLAYER_WIDTH=80, BALL_WIDTH=3, BALL_SPEED=5):
         """
         Initialize the level object
+        :param NAME: string
         :param BRICKS_AMT_X: int
         :param BRICKS_AMT_Y: int
+        :param SCREEN_WIDTH: int
         :param LIVES: int
         :param PLAYER_WIDTH: int
         :param BALL_WIDTH: int
@@ -31,9 +34,13 @@ class Level:  # This is an aggregate object because it combines box classes
         self.__BRICKS_AMT_Y = BRICKS_AMT_Y
         self.__BRICKS = []
         self.__LIVES = LIVES
+        self.__SCORE = 0
         self.__PLAYER = Player(PLAYER_WIDTH)  # Composition
         self.__BALL = Box(BALL_WIDTH, BALL_WIDTH)
         self.__BALL.setSpeed(BALL_SPEED)
+        self.__SCREEN_WIDTH = SCREEN_WIDTH
+        self.__TOP_TEXT = TopText(NAME, self.__SCREEN_WIDTH)
+        self.STARTED = False
 
     def setup(self, MAX_X, MAX_Y, MIN_X=0, MIN_Y=0, PADDING_X=5, PADDING_Y=5):
         """
@@ -74,8 +81,15 @@ class Level:  # This is an aggregate object because it combines box classes
                 return i, COLLIDE
         return -1, 0
 
-    def death(self, VICTORY):
-        pass
+    def death(self):
+        self.__LIVES = self.__LIVES - 1  # reduce lives
+        # reset positions
+        self.__BALL.setPos(self.__SCREEN_WIDTH // 2 - self.__BALL.getWidth() // 2,
+                           self.__PLAYER.getY() - 10)  # set position
+        self.__PLAYER.setX(self.__SCREEN_WIDTH // 2 - self.__PLAYER.getWidth() // 2)
+
+    def addScore(self, AMOUNT):
+        self.__SCORE = self.__SCORE + AMOUNT
 
     def victory(self):
         pass
@@ -93,14 +107,21 @@ class Level:  # This is an aggregate object because it combines box classes
     def getBall(self):
         return self.__BALL
 
+    def getTopText(self):
+        return self.__TOP_TEXT
+
 
 if __name__ == "__main__":  # just a test
     pygame.init()
     WINDOW = Window("Test level", COLOR=(9, 14, 32))
-    LEVEL_1 = Level(10, 5, 3, 100, 5, 3)
+    LEVEL_1 = Level("Test Level", 10, 5, WINDOW.getWidth(), 3, 100, 5, 3)
     LEVEL_1.setup(WINDOW.getWidth() - 100, 300, 100, 100, 3, 20)
     LEVEL_1.getPlayer().setPos((WINDOW.getWidth() - 100)//2, WINDOW.getHeight() - 50)
     BRICKS = LEVEL_1.getBricks()
+
+    # Set ball position
+    LEVEL_1.getBall().setPos(WINDOW.getWidth()//2 - LEVEL_1.getBall().getWidth()//2,
+                             LEVEL_1.getPlayer().getY() - 10)
 
     while True:
         # INPUT (getting player movements)
@@ -122,7 +143,7 @@ if __name__ == "__main__":  # just a test
         LEVEL_1.getBall().bounceX(WINDOW.getWidth())
 
         # Check if ball is out of bounds, then bounce Y
-        if LEVEL_1.getBall().getY() > WINDOW.getHeight() - LEVEL_1.getBall().getHeight():
+        if LEVEL_1.getBall().getY() > WINDOW.getHeight() - LEVEL_1.getBall().getHeight() - 3:
             # A life is lost
             pass
         else:
@@ -136,7 +157,6 @@ if __name__ == "__main__":  # just a test
 
         # Checking for collisions with bricks
         COLLIDED_BRICK, COLLIDED_SIDE = LEVEL_1.checkCollisions()
-        print(COLLIDED_BRICK)
         if COLLIDED_BRICK != -1:
             BRICKS.pop(COLLIDED_BRICK)  # Remove that brick
             LEVEL_1.getBall().collisionBump(COLLIDED_SIDE)
