@@ -20,7 +20,8 @@ if __name__ == "__main__":  # just a test
     while LEVEL_NUM < 10:  # 10 levels
         # Base the amount of bricks on
         LEVEL = Level(f"Level {LEVEL_NUM}", LEVEL_NUM + 1, LEVEL_NUM // 2 + 1,
-                      WINDOW.getWidth(), 3, 100, 5, 3)
+                      WINDOW.getWidth(), 3, 100, 5, 3,
+                      LEVEL_NUM // 2 + 1)
         LEVEL.setup(WINDOW.getWidth() - 100, 300, 100, 100,
                     5, 5)
         LEVEL.getPlayer().setPos((WINDOW.getWidth() - 100)//2, WINDOW.getHeight() - 50)
@@ -92,6 +93,7 @@ if __name__ == "__main__":  # just a test
                 COLLIDED_BRICK, COLLIDED_SIDE = LEVEL.checkCollisions()
                 if COLLIDED_BRICK != -1:
                     BRICKS[COLLIDED_BRICK].reduceHealth()  # get rid of health
+                    BRICKS[COLLIDED_BRICK].setColor()
                     if BRICKS[COLLIDED_BRICK].getHealth() <= 0:  # Brick is fully destroyed
                         BRICKS.pop(COLLIDED_BRICK)  # Remove that brick
                         LEVEL.addScore(1)  # Add score

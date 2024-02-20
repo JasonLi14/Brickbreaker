@@ -11,6 +11,7 @@ from window import Window
 from player_sprite import Player
 import pygame
 from top_text import TopText
+from random import randrange
 
 
 class Level:  # This is an aggregate object because it combines box classes
@@ -18,7 +19,7 @@ class Level:  # This is an aggregate object because it combines box classes
     Level class ==> one class for each level
     """
     def __init__(self, NAME, BRICKS_AMT_X, BRICKS_AMT_Y, SCREEN_WIDTH,
-                 LIVES=3, PLAYER_WIDTH=80, BALL_WIDTH=3, BALL_SPEED=5):
+                 LIVES=3, PLAYER_WIDTH=80, BALL_WIDTH=3, BALL_SPEED=5, MAX_BRICK_HEALTH=1):
         """
         Initialize the level object
         :param NAME: string
@@ -29,6 +30,7 @@ class Level:  # This is an aggregate object because it combines box classes
         :param PLAYER_WIDTH: int
         :param BALL_WIDTH: int
         :param BALL_SPEED: int
+        :param MAX_BRICK_HEALTH: int
         """
         self.__BRICKS_AMT_X = BRICKS_AMT_X
         self.__BRICKS_AMT_Y = BRICKS_AMT_Y
@@ -38,6 +40,7 @@ class Level:  # This is an aggregate object because it combines box classes
         self.__PLAYER = Player(PLAYER_WIDTH)  # Composition
         self.__BALL = Box(BALL_WIDTH, BALL_WIDTH)
         self.__BALL.setSpeed(BALL_SPEED)
+        self.__MAX_BRICK_HEALTH = MAX_BRICK_HEALTH
         self.__SCREEN_WIDTH = SCREEN_WIDTH
         self.__TOP_TEXT = TopText(NAME, self.__SCREEN_WIDTH)
         self.__TOP_TEXT.updateLives(self.__LIVES)  # Show amount of lives
@@ -62,9 +65,11 @@ class Level:  # This is an aggregate object because it combines box classes
         # Create a list of bricks
         for i in range(self.__BRICKS_AMT_Y):
             for j in range(self.__BRICKS_AMT_X):
-                NEW_BRICK = Brick(BRICK_WIDTH, BRICK_HEIGHT)  # Composition
+                BRICK_HEALTH = randrange(1, self.__MAX_BRICK_HEALTH + 1)  # Choose health for bricks
+                NEW_BRICK = Brick(BRICK_WIDTH, BRICK_HEIGHT, BRICK_HEALTH)  # Composition
                 # Set their positions and stagger them
                 NEW_BRICK.setY((BRICK_HEIGHT + PADDING_Y) * i + MIN_Y)  # General Position
+                NEW_BRICK.setColor()
                 if i % 2 == 0:  # Displaces every other row by half the brick's width
                     NEW_BRICK.setX((BRICK_WIDTH + PADDING_X) * j + MIN_X + BRICK_WIDTH//4)
                 else:  # Ensures close to center
