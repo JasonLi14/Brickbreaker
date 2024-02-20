@@ -11,7 +11,7 @@ from window import Window
 
 
 class Player(Box):
-    def __init__(self, WIDTH=10, HEIGHT=100):
+    def __init__(self, WIDTH=10, HEIGHT=10):
         Box.__init__(self, WIDTH, HEIGHT, 10)
 
     # --- MODIFIER METHODS --- #
