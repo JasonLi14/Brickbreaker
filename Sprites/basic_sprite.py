@@ -199,7 +199,6 @@ class BasicSprite:
                     if SIDE_DIST[i] < MIN_DIST:
                         MIN_DIST = SIDE_DIST[i]
                         MIN_INDEX = i
-                print(MIN_INDEX + 1)
                 return MIN_INDEX + 1
         return 0
 
