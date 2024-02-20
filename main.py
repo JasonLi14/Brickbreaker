@@ -72,6 +72,9 @@ if __name__ == "__main__":  # just a test
             if COLLIDED_BRICK != -1:
                 BRICKS.pop(COLLIDED_BRICK)  # Remove that brick
                 LEVEL.getBall().collisionBump(COLLIDED_SIDE)
+                LEVEL.addScore(1)
+
+            # Check for victory
 
         # OUTPUT (rendering game)
         WINDOW.clearScreen()

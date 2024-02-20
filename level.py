@@ -40,6 +40,8 @@ class Level:  # This is an aggregate object because it combines box classes
         self.__BALL.setSpeed(BALL_SPEED)
         self.__SCREEN_WIDTH = SCREEN_WIDTH
         self.__TOP_TEXT = TopText(NAME, self.__SCREEN_WIDTH)
+        self.__TOP_TEXT.updateLives(self.__LIVES)  # Show amount of lives
+        self.__TOP_TEXT.updateScore(self.__SCORE)
         self.STARTED = False
 
     def setup(self, MAX_X, MAX_Y, MIN_X=0, MIN_Y=0, PADDING_X=5, PADDING_Y=5):
@@ -83,6 +85,7 @@ class Level:  # This is an aggregate object because it combines box classes
 
     def death(self):
         self.__LIVES = self.__LIVES - 1  # reduce lives
+        self.__TOP_TEXT.updateLives(self.__LIVES)
         # reset positions
         self.__BALL.setPos(self.__SCREEN_WIDTH // 2 - self.__BALL.getWidth() // 2,
                            self.__PLAYER.getY() - 10)  # set position
@@ -90,6 +93,7 @@ class Level:  # This is an aggregate object because it combines box classes
 
     def addScore(self, AMOUNT):
         self.__SCORE = self.__SCORE + AMOUNT
+        self.__TOP_TEXT.updateScore(self.__SCORE)
 
     def victory(self):
         pass

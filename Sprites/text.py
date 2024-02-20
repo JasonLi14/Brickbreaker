@@ -29,6 +29,14 @@ class Text(BasicSprite):  # Brackets indicate that it is inheriting
         BasicSprite.setColor(self, COLOR)
         self._SURFACE = self.__FONT.render(self.__TEXT, True, self._COLOR)
 
+    def updateText(self, NEW_TEXT):
+        """
+        Changes text content to become NEW_TEXT
+        :param NEW_TEXT: string
+        """
+        self.__TEXT = NEW_TEXT
+        self._SURFACE = self.__FONT.render(self.__TEXT, True, self._COLOR)
+
 
 if __name__ == "__main__":
     pygame.init()
