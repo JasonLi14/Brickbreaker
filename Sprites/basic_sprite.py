@@ -146,7 +146,7 @@ class BasicSprite:
         """
         if SIDE == 1 or SIDE == 3:  # Top or bottom
             self.__DIR_Y = -1 * self.__DIR_Y
-        if SIDE == 2 or SIDE == 4:  # Top or bottom
+        if SIDE == 2 or SIDE == 4:  # Left or right
             self.__DIR_X = -1 * self.__DIR_X
 
     def setColor(self, COLOR):
@@ -188,9 +188,9 @@ class BasicSprite:
                 # Create a list of size 4. This just lets me not have to use big if statements.
                 SIDE_DIST = [0, 0, 0, 0]
                 SIDE_DIST[0] = abs(Y - self.__Y)
-                SIDE_DIST[1] = abs(self.__Y + self.__HEIGHT - self.__Y - HEIGHT)
-                SIDE_DIST[2] = abs(X - self.__X)
-                SIDE_DIST[3] = abs(self.__X + self.__WIDTH - self.__X - WIDTH)
+                SIDE_DIST[1] = abs(self.__X + self.__WIDTH - X - WIDTH)
+                SIDE_DIST[2] = abs(self.__Y + self.__HEIGHT - Y - HEIGHT)
+                SIDE_DIST[3] = abs(X - self.__X)
                 # Use for loop to iterate over SIDE_DIST and find the smallest value's index
                 MIN_DIST = 1000000000
                 MIN_INDEX = -1
@@ -199,6 +199,7 @@ class BasicSprite:
                     if SIDE_DIST[i] < MIN_DIST:
                         MIN_DIST = SIDE_DIST[i]
                         MIN_INDEX = i
+                print(MIN_INDEX + 1)
                 return MIN_INDEX + 1
         return 0
 
