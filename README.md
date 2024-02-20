@@ -6,7 +6,7 @@ Brick breaker. You break bricks, they break you.
 This game requires the pygame library.
 
 ## Extra Features
-1. There are ten (automatically generated) levels in the game. I designed the objects specifically so that I could easily change a few numbers during instantiation and increase the difficulty of the game (i.e. increase the amount of bricks). I could have unlimited levels, but after a certain point the margins and padding become difficult to manage, so I capped it at ten for this demonstration.
+1. There are twenty-five (automatically generated) levels in the game. I designed the objects specifically so that I could easily change a few numbers during instantiation and increase the difficulty of the game (i.e. increase the amount of bricks). I could have unlimited levels, but after a certain point the margins and padding become difficult to manage, so I capped it at ten for this demonstration.
 2. Each brick has a health value and a color that corresponds to its health.
 
 ## Reflection 
