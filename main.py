@@ -17,11 +17,12 @@ if __name__ == "__main__":  # just a test
     WINDOW = Window("Brick-Breaker", COLOR=(30, 30, 30))
     LEVEL_NUM = 1
 
-    while LEVEL_NUM < 10:  # Limit to ten levels because the automatic level generator looks ugly
+    while LEVEL_NUM < 10:  # 10 levels
         # Base the amount of bricks on
         LEVEL = Level(f"Level {LEVEL_NUM}", LEVEL_NUM + 1, LEVEL_NUM // 2 + 1,
                       WINDOW.getWidth(), 3, 100, 5, 3)
-        LEVEL.setup(WINDOW.getWidth() - 100, 300, 100, 100, 5, 5)
+        LEVEL.setup(WINDOW.getWidth() - 100, 300, 100, 100,
+                    5, 5)
         LEVEL.getPlayer().setPos((WINDOW.getWidth() - 100)//2, WINDOW.getHeight() - 50)
         BRICKS = LEVEL.getBricks()
 
