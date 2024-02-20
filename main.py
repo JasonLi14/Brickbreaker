@@ -23,7 +23,7 @@ if __name__ == "__main__":  # just a test
                       WINDOW.getWidth(), 3, 100, 5, 3,
                       LEVEL_NUM // 2 + 1)
         LEVEL.setup(WINDOW.getWidth() - 100, 300, 100, 100,
-                    1, 1)
+                    5, 5)
         LEVEL.getPlayer().setPos((WINDOW.getWidth() - 100)//2, WINDOW.getHeight() - 50)
         BRICKS = LEVEL.getBricks()
 
