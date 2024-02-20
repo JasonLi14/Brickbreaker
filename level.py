@@ -95,12 +95,6 @@ class Level:  # This is an aggregate object because it combines box classes
         self.__SCORE = self.__SCORE + AMOUNT
         self.__TOP_TEXT.updateScore(self.__SCORE)
 
-    def victory(self):
-        pass
-
-    def loss(self):
-        pass
-
     # Accessor Methods
     def getBricks(self):
         return self.__BRICKS
@@ -113,6 +107,9 @@ class Level:  # This is an aggregate object because it combines box classes
 
     def getTopText(self):
         return self.__TOP_TEXT
+
+    def getLives(self):
+        return self.__LIVES
 
 
 if __name__ == "__main__":  # just a test
