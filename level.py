@@ -7,9 +7,7 @@ Date-Created: 2024-02-05
 
 from Sprites.box import Box
 from brick import Brick
-from window import Window
 from player_sprite import Player
-import pygame
 from top_text import TopText
 from random import randrange
 
@@ -115,66 +113,3 @@ class Level:  # This is an aggregate object because it combines box classes
 
     def getLives(self):
         return self.__LIVES
-
-
-if __name__ == "__main__":  # just a test
-    pygame.init()
-    WINDOW = Window("Test level", COLOR=(9, 14, 32))
-    LEVEL_1 = Level("Test Level", 10, 5, WINDOW.getWidth(), 3, 100, 5, 3)
-    LEVEL_1.setup(WINDOW.getWidth() - 100, 300, 100, 100, 3, 20)
-    LEVEL_1.getPlayer().setPos((WINDOW.getWidth() - 100)//2, WINDOW.getHeight() - 50)
-    BRICKS = LEVEL_1.getBricks()
-
-    # Set ball position
-    LEVEL_1.getBall().setPos(WINDOW.getWidth()//2 - LEVEL_1.getBall().getWidth()//2,
-                             LEVEL_1.getPlayer().getY() - 10)
-
-    while True:
-        # INPUT (getting player movements)
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                exit()
-
-        PRESSED_KEYS = pygame.key.get_pressed()
-
-        # PROCESSING
-        # Moving the player
-        LEVEL_1.getPlayer().ADMove(PRESSED_KEYS)
-        LEVEL_1.getPlayer().wrapX(WINDOW.getWidth())
-
-        # Moving the Ball
-        LEVEL_1.getBall().marqueeX()
-        LEVEL_1.getBall().marqueeY()
-        LEVEL_1.getBall().bounceX(WINDOW.getWidth())
-
-        # Check if ball is out of bounds, then bounce Y
-        if LEVEL_1.getBall().getY() > WINDOW.getHeight() - LEVEL_1.getBall().getHeight() - 3:
-            # A life is lost
-            pass
-        else:
-            LEVEL_1.getBall().bounceY(WINDOW.getHeight())  # Enable to bounce on the top edge
-
-        # Checking for collisions with the paddle
-        BALL_PLAYER_COLLIDE = LEVEL_1.getBall().isCollision(LEVEL_1.getPlayer().getSurface(),
-                                                            LEVEL_1.getPlayer().getPOS())
-        if BALL_PLAYER_COLLIDE != 0:
-            LEVEL_1.getBall().collisionBump(BALL_PLAYER_COLLIDE)
-
-        # Checking for collisions with bricks
-        COLLIDED_BRICK, COLLIDED_SIDE = LEVEL_1.checkCollisions()
-        if COLLIDED_BRICK != -1:
-            BRICKS.pop(COLLIDED_BRICK)  # Remove that brick
-            LEVEL_1.getBall().collisionBump(COLLIDED_SIDE)
-
-        # OUTPUT (rendering game)
-        WINDOW.clearScreen()
-        # Bricks
-        for BRICK in BRICKS:
-            WINDOW.getSurface().blit(BRICK.getSurface(), BRICK.getPOS())
-        # Player
-        WINDOW.getSurface().blit(LEVEL_1.getPlayer().getSurface(), LEVEL_1.getPlayer().getPOS())
-        # Ball
-        WINDOW.getSurface().blit(LEVEL_1.getBall().getSurface(), LEVEL_1.getBall().getPOS())
-
-        WINDOW.updateFrame()
