@@ -27,6 +27,7 @@ class TopText(Box):
         self.__LIVES = Text("Lives: ", 30)
         self.__LIVES.setX(WIDTH - self.__LIVES.getWidth() - 60)
 
+    # Modifier
     def blitOnWindow(self, WINDOW):
         """
         Puts top text on to the WINDOW

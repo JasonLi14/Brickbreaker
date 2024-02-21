@@ -8,19 +8,25 @@ Date Created: 2024-02-07
 from Sprites.box import Box
 
 
-class Brick(Box):  # Inheritance from Box Sprite
+class Brick(Box):  # Inheritance from Box Class
 
     def __init__(self, WIDTH, HEIGHT, HEALTH=1):
         Box.__init__(self, WIDTH, HEIGHT)
         self.__HEALTH = HEALTH  # Encapsulating the health parameter
 
+    # Modifier
     def reduceHealth(self):
         self.__HEALTH -= 1
 
     def setColor(self, COLOR=(0, 0, 0)):
         """
         Color is based on health.
+        This is an example of polymorphism. The regular setColor() method in the Box class would simply change
+        the color to the argument in the COLOR parameter. This method is different in that it sets the color based
+        on the health of the brick, and therefore has a different result than the original setColor() method.
+        :param COLOR: tuple(int)
         """
+
         # Find the color based on health.
         # 1 health means white
         if self.__HEALTH == 1:
@@ -58,5 +64,6 @@ class Brick(Box):  # Inheritance from Box Sprite
             BLUE = int((BLUE + M_VALUE) * 255)
             Box.setColor(self, (RED, GREEN, BLUE))
 
+    # Accessor
     def getHealth(self):
         return self.__HEALTH

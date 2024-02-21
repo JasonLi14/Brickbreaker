@@ -13,6 +13,7 @@ import time  # To transition between levels/loss
 
 
 if __name__ == "__main__":  # just a test
+    # --- SETUP/BEFORE INPUT --- #
     pygame.init()
     WINDOW = Window("Brick-Breaker", COLOR=(30, 30, 30))
     LEVEL_NUM = 1
@@ -50,7 +51,7 @@ if __name__ == "__main__":  # just a test
 
         CONTINUE_GAME = True  # Check if game is proceeding (i.e. no victory nor loss)
         while CONTINUE_GAME:  # Main game play for each level
-            # INPUT (getting player movements)
+            # --- INPUT --- # (getting player key presses)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -64,7 +65,7 @@ if __name__ == "__main__":  # just a test
                 if PRESSED_KEYS[pygame.K_SPACE]:
                     LEVEL.STARTED = True
             else:
-                # PROCESSING
+                # --- PROCESSING --- # (moving player, checking collisions, etc.)
                 # Moving the player
                 LEVEL.getPlayer().ADMove(PRESSED_KEYS)
                 LEVEL.getPlayer().wrapX(WINDOW.getWidth())
@@ -99,7 +100,7 @@ if __name__ == "__main__":  # just a test
                         LEVEL.addScore(1)  # Add score
                     LEVEL.getBall().collisionBump(COLLIDED_SIDE)
 
-            # OUTPUT (rendering game)
+            # --- OUTPUT --- # (rendering game)
             WINDOW.clearScreen()
             # Bricks
             for BRICK in BRICKS:

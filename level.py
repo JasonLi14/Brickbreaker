@@ -35,8 +35,9 @@ class Level:  # This is an aggregate object because it combines box classes
         self.__BRICKS = []
         self.__LIVES = LIVES
         self.__SCORE = 0
-        self.__PLAYER = Player(PLAYER_WIDTH)  # Composition
-        self.__BALL = Box(BALL_WIDTH, BALL_WIDTH)
+        # --- COMPOSITION --- # ==> The level object is composed of the player object (and some other ones too)
+        self.__PLAYER = Player(PLAYER_WIDTH)
+        self.__BALL = Box(BALL_WIDTH, BALL_WIDTH)  # More composition
         self.__BALL.setSpeed(BALL_SPEED)
         self.__MAX_BRICK_HEALTH = MAX_BRICK_HEALTH
         self.__SCREEN_WIDTH = SCREEN_WIDTH
@@ -45,6 +46,7 @@ class Level:  # This is an aggregate object because it combines box classes
         self.__TOP_TEXT.updateScore(self.__SCORE)
         self.STARTED = False
 
+    # Modifier methods
     def setup(self, MAX_X, MAX_Y, MIN_X=0, MIN_Y=0, PADDING_X=5, PADDING_Y=5):
         """
         Creates bricks and sets them up.
@@ -63,8 +65,9 @@ class Level:  # This is an aggregate object because it combines box classes
         # Create a list of bricks
         for i in range(self.__BRICKS_AMT_Y):
             for j in range(self.__BRICKS_AMT_X):
+                # --- AGGREGATION --- # ==> aggregating multiple brick objects together.
                 BRICK_HEALTH = randrange(1, self.__MAX_BRICK_HEALTH + 1)  # Choose health for bricks
-                NEW_BRICK = Brick(BRICK_WIDTH, BRICK_HEIGHT, BRICK_HEALTH)  # Composition
+                NEW_BRICK = Brick(BRICK_WIDTH, BRICK_HEIGHT, BRICK_HEALTH)  # Composition ==> Level has brick objects
                 # Set their positions and stagger them
                 NEW_BRICK.setY((BRICK_HEIGHT + PADDING_Y) * i + MIN_Y)  # General Position
                 NEW_BRICK.setColor()
