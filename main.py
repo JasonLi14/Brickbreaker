@@ -18,6 +18,18 @@ if __name__ == "__main__":  # just a test
     WINDOW = Window("Brick-Breaker", COLOR=(30, 30, 30))
     LEVEL_NUM = 1
 
+    # Text when player wins a level
+    VICTORY_TEXT = Text("You win!!! Next level...", 36)
+    VICTORY_TEXT.setPos(WINDOW.getWidth() // 2 - VICTORY_TEXT.getWidth() // 2,
+                        WINDOW.getHeight() // 2 - VICTORY_TEXT.getHeight() // 2)  # Put at middle
+    VICTORY_TEXT.setColor((0, 255, 0))
+
+    # Text when player loses all lives
+    LOSE_TEXT = Text("You lost :( Resetting level...", 36)
+    LOSE_TEXT.setPos(WINDOW.getWidth() // 2 - LOSE_TEXT.getWidth() // 2,
+                     WINDOW.getHeight() // 2 - LOSE_TEXT.getHeight() // 2)  # Put at middle
+    LOSE_TEXT.setColor((255, 0, 0))
+
     while LEVEL_NUM < 26:  # 25 levels
         # Base the amount of bricks on
         LEVEL = Level(f"Level {LEVEL_NUM}", LEVEL_NUM // 2 + 5, LEVEL_NUM // 2 + 2,
@@ -30,20 +42,8 @@ if __name__ == "__main__":  # just a test
 
         # Text to prompt player to start the game
         START_TEXT = Text("Press SPACE to start", 20)
-        START_TEXT.setPos(WINDOW.getWidth()//2 - START_TEXT.getWidth()//2,
+        START_TEXT.setPos(WINDOW.getWidth() // 2 - START_TEXT.getWidth() // 2,
                           LEVEL.getPlayer().getY() - 3 * START_TEXT.getHeight())
-
-        # Text when player wins a level
-        VICTORY_TEXT = Text("You win!!! Next level...", 36)
-        VICTORY_TEXT.setPos(WINDOW.getWidth()//2 - VICTORY_TEXT.getWidth()//2,
-                            WINDOW.getHeight()//2 - VICTORY_TEXT.getHeight()//2)  # Put at middle
-        VICTORY_TEXT.setColor((0, 255, 0))
-
-        # Text when player loses all lives
-        LOSE_TEXT = Text("You lost :( Resetting level...", 36)
-        LOSE_TEXT.setPos(WINDOW.getWidth() // 2 - LOSE_TEXT.getWidth() // 2,
-                         WINDOW.getHeight() // 2 - LOSE_TEXT.getHeight() // 2)  # Put at middle
-        LOSE_TEXT.setColor((255, 0, 0))
 
         # Set ball position
         LEVEL.getBall().setPos(WINDOW.getWidth()//2 - LEVEL.getBall().getWidth()//2,
