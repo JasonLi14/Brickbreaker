@@ -46,7 +46,7 @@ if __name__ == "__main__":  # just a test
 
         # Set ball position
         LEVEL.getBall().setPos(WINDOW.getWidth()//2 - LEVEL.getBall().getWidth()//2,
-                               LEVEL.getPlayer().getY() - 10)
+                               LEVEL.getPlayer().getY() - 20)
 
         CONTINUE_GAME = True  # Check if game is proceeding (i.e. no victory nor loss)
         while CONTINUE_GAME:  # Main game play for each level
@@ -74,7 +74,7 @@ if __name__ == "__main__":  # just a test
                 LEVEL.getBall().marqueeY()
                 LEVEL.getBall().bounceX(WINDOW.getWidth())
 
-                # Check if ball is out of bounds, then bounce Y
+                # Check if ball is out of bounds, if not then bounce Y
                 if LEVEL.getBall().getY() > WINDOW.getHeight() - LEVEL.getBall().getHeight() - 3:
                     # A life is lost ==> reset positions
                     LEVEL.death()

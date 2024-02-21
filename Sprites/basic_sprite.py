@@ -182,15 +182,15 @@ class BasicSprite:
         HEIGHT = SCREEN.get_height()
         X = POS[0]
         Y = POS[1]
-        if X - self.__WIDTH <= self.__X <= X + WIDTH:
+        if X - self.__WIDTH <= self.__X <= X + WIDTH:  # checks for collision
             if Y - self.__HEIGHT <= self.__Y <= Y + HEIGHT:
-                # find the edge
+                # find the edge that was collided on
                 # Create a list of size 4. This just lets me not have to use big if statements.
                 SIDE_DIST = [0, 0, 0, 0]
-                SIDE_DIST[0] = abs(Y - self.__Y)
-                SIDE_DIST[1] = abs(self.__X + self.__WIDTH - X - WIDTH)
-                SIDE_DIST[2] = abs(self.__Y + self.__HEIGHT - Y - HEIGHT)
-                SIDE_DIST[3] = abs(X - self.__X)
+                SIDE_DIST[0] = abs(self.__Y + self.__HEIGHT - Y)
+                SIDE_DIST[1] = abs(X + WIDTH - self.__X)
+                SIDE_DIST[2] = abs(Y + HEIGHT - self.__Y)
+                SIDE_DIST[3] = abs(self.__X + self.__WIDTH - X)
                 # Use for loop to iterate over SIDE_DIST and find the smallest value's index
                 MIN_DIST = 1000000000
                 MIN_INDEX = -1
@@ -199,7 +199,8 @@ class BasicSprite:
                     if SIDE_DIST[i] < MIN_DIST:
                         MIN_DIST = SIDE_DIST[i]
                         MIN_INDEX = i
-                return MIN_INDEX + 1
+                if MIN_DIST > 10:
+                    return MIN_INDEX + 1
         return 0
 
     def getWidth(self):

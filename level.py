@@ -83,7 +83,7 @@ class Level:  # This is an aggregate object because it combines box classes
         second denotes where it was hit
         """
         for i in range(len(self.__BRICKS)):
-            COLLIDE = self.__BRICKS[i].isCollision(self.__BALL.getSurface(), self.__BALL.getPOS())
+            COLLIDE = self.__BALL.isCollision(self.__BRICKS[i].getSurface(), self.__BRICKS[i].getPOS())
             if COLLIDE > 0:  # There was a collision
                 return i, COLLIDE
         return -1, 0
@@ -93,7 +93,7 @@ class Level:  # This is an aggregate object because it combines box classes
         self.__TOP_TEXT.updateLives(self.__LIVES)
         # reset positions
         self.__BALL.setPos(self.__SCREEN_WIDTH // 2 - self.__BALL.getWidth() // 2,
-                           self.__PLAYER.getY() - 10)  # set position
+                           self.__PLAYER.getY() - 20)  # set original position
         self.__PLAYER.setX(self.__SCREEN_WIDTH // 2 - self.__PLAYER.getWidth() // 2)
 
     def addScore(self, AMOUNT):
