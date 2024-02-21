@@ -30,6 +30,7 @@ Being able to use inheritance definitely saved me a lot of extra code. I was act
 Following IPO felt a little different in pygame, since I found that I had to do a significant amount of "set up" before I could take the player's inputs. For example, I had to create the level object first. In addition, I designed the program so that the level is created before the player inputs because this would allow me to loop through many levels and pause the game between different levels.
 
 To find examples of composition, aggregation, and encapsulation, look at the level.py file. To find examples of polymorphism and inheritance, look at the brick.py file. 
+
 ## Sources (for color feature of bricks):
 HSV to RGB color conversion. HSV to RGB conversion | color conversion. (n.d.). 
     https://www.rapidtables.com/convert/color/hsv-to-rgb.html 
