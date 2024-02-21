@@ -199,8 +199,7 @@ class BasicSprite:
                     if SIDE_DIST[i] < MIN_DIST:
                         MIN_DIST = SIDE_DIST[i]
                         MIN_INDEX = i
-                if MIN_DIST > 10:
-                    return MIN_INDEX + 1
+                return MIN_INDEX + 1
         return 0
 
     def getWidth(self):

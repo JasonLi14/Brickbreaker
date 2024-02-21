@@ -19,7 +19,7 @@ if __name__ == "__main__":  # just a test
 
     while LEVEL_NUM < 26:  # 25 levels
         # Base the amount of bricks on
-        LEVEL = Level(f"Level {LEVEL_NUM}", LEVEL_NUM + 1, LEVEL_NUM // 2 + 1,
+        LEVEL = Level(f"Level {LEVEL_NUM}", LEVEL_NUM // 2 + 5, LEVEL_NUM // 2 + 2,
                       WINDOW.getWidth(), 3, 100, 5, 3,
                       LEVEL_NUM // 2 + 1)
         LEVEL.setup(WINDOW.getWidth() - 100, 300, 100, 100,

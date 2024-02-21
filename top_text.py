@@ -17,7 +17,7 @@ class TopText(Box):
         self.setPos(0, 0)  # Set position at very top
         self.__NAME = "Brick-Breaker " + NAME
 
-        self.__TITLE = Text(self.__NAME, 30)  # Composition of multiple text
+        self.__TITLE = Text(self.__NAME, 30)  # Composition of multiple text objects
         self.__TITLE.setWidth(WIDTH//2)  # Half size
         self.__TITLE.setX(WIDTH//2 - self.__TITLE.getWidth()//2)  # Centralize
 
